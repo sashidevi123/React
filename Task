@@ -1,0 +1,155 @@
+import "./Footer.css";
+const Footer: React.FC = () => {
+  return (
+    <footer className="footer">
+      <p>© 2026 My Project</p>
+      <p>
+        <a href="#">Instagram</a> | <a href="#">LinkedIn</a>
+      </p>
+    </footer>
+  );
+};
+
+export default Footer;
+
+
+
+
+import { Link } from "react-router-dom";
+import "./Navbar.css";
+
+const Navbar: React.FC = () => {
+  return (
+    <div className="navbar">
+      <h2 className="logo">My Project</h2>
+
+      <div className="nav-links">
+        <a href="/">Home</a>
+        <a href="/services">Services</a>
+        <a href="/contact">Contact Us</a>
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;
+
+
+
+
+
+
+
+import { useState } from "react";
+
+interface ContactForm {
+  name: string;
+  email: string;
+  message: string;
+}
+
+const Contact: React.FC = () => {
+  const [form, setForm] = useState<ContactForm>({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(form);
+    alert("Form submitted!");
+  };
+
+  return (
+    <div className="page">
+      <h1>Contact Us</h1>
+      <img src="https://via.placeholder.com/300" alt="contact" />
+
+      <form onSubmit={handleSubmit}>
+        <input name="name" placeholder="Name" onChange={handleChange} />
+        <input name="email" placeholder="Email" onChange={handleChange} />
+        <textarea
+          name="message"
+          placeholder="Message"
+          onChange={handleChange}
+        />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  );
+};
+
+export default Contact;
+
+
+
+
+
+
+
+const Home: React.FC = () => {
+  return (
+    <div className="page">
+      <h1>Welcome to Our Website</h1>
+      <img src="https://via.placeholder.com/300" alt="home" />
+      <p>This is the home page.</p>
+    </div>
+  );
+};
+
+export default Home;
+
+
+
+
+const Services: React.FC = () => {
+  return (
+    <div className="page">
+      <h1>Our Services</h1>
+      <img src="https://via.placeholder.com/300" alt="services" />
+      <ul>
+        <li>Web Development</li>
+        <li>Mobile App Development</li>
+        <li>UI/UX Design</li>
+      </ul>
+    </div>
+  );
+};
+
+export default Services;
+
+
+
+
+
+
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import Services from "./pages/Services";
+import Contact from "./pages/Contact";
+
+const App: React.FC = () => {
+  return (
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
+  );
+};
+
+export default App;
